@@ -88,16 +88,19 @@ export function* forgotPasswordSaga() {
 }
 
 export function* changePasswordSaga() {
-  yield takeEvery(actions.CHANGE_PASSWORD, function* ({ payload, history }) {
+  yield takeEvery(actions.CHANGE_PASSWORD, function* ({ payload }) {
     try {
       const response = yield call(changePassword, payload);
       if (response.status === 1) {
-        message.success(response.message);
         history.push("/dashboard");
+        message.success(response.message);
+        yield put({ type: actions.CHANGE_PASSWORD_COMPLETED });
       } else {
         message.error(response.message);
+        yield put({ type: actions.CHANGE_PASSWORD_COMPLETED });
       }
     } catch (error) {
+      yield put({ type: actions.CHANGE_PASSWORD_COMPLETED });
       console.log(error);
     }
   });

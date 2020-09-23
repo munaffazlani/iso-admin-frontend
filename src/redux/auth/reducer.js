@@ -16,6 +16,16 @@ export default function authReducer(state = initialState, action) {
         ...state,
         isSubmitting: true,
       };
+    case actions.CHANGE_PASSWORD:
+      return {
+        ...state,
+        isSubmitting: true,
+      };
+    case actions.CHANGE_PASSWORD_COMPLETED:
+      return {
+        ...state,
+        isSubmitting: false,
+      };
     case actions.FORGOT_PASSWORD:
       return {
         ...state,
